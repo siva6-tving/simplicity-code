@@ -22,6 +22,10 @@ const update_shipping_icons = () => {
 	}
 };
 
+const update_tax_dom = () => {
+	set_tax_dom(shopping_cart_total * 0.10);
+};
+
 const calc_cart_total = () => {
 	shopping_cart_total = 0;
 	for(var i = 0; i < shopping_cart.length; i++) {
@@ -30,4 +34,5 @@ const calc_cart_total = () => {
 	}
 	set_cart_total_dom();
 	update_shipping_icons();
+	update_tax_dom();
 };

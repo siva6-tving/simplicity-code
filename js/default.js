@@ -27,7 +27,7 @@ const makeItem = item => {
 	itemDom.innerHTML = `
 		<img class="w-full" src="${item.img}" alt="${item.name}">
 		<div class="text-blue-500">${item.name}</div>
-		<div class="text-red-400">${item.price}</div>
+		<div class="text-red-400">$${item.price}</div>
 		<button onclick="add_item_to_cart('${item.name}', ${item.price})" class="cart-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
 			장바구니
 		</button>
@@ -49,6 +49,7 @@ const set_free = (button, show) => {
 	}
 };
 
+/////////////////////////////////////////////////////////////////////////////////
 const get_buy_buttons_dom = () => {
 	const buttons = document.querySelectorAll('.cart-btn');
 	return _goods.map((item, idx) => {
@@ -60,9 +61,12 @@ const get_buy_buttons_dom = () => {
 	});
 };
 
-/////////////////////////////////////////////////////////////////////////////////
 const set_cart_total_dom = () => {
-	document.querySelector('#cart-total').innerText = shopping_cart_total;
+	document.querySelector('#cart-total').innerText = shopping_cart_total.toFixed(2);
+};
+
+const set_tax_dom = tax => {
+	document.querySelector('#cart-tax').innerText = tax.toFixed(2);
 };
 /////////////////////////////////////////////////////////////////////////////////
 
