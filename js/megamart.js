@@ -19,6 +19,8 @@ const add_item = (cart, name, price) => {
 	return new_cart;
 }
 
+const calc_tax = amount => amount * 0.10;
+
 ////////////////////////////////////////////////////////////////////
 
 const update_shipping_icons = () => {
@@ -34,12 +36,12 @@ const update_shipping_icons = () => {
 	}
 };
 
-const update_tax_dom = () => {
-	set_tax_dom(shopping_cart_total * 0.10);
-};
-
 
 ////////////////////////////////////////////////////////////////////
+const update_tax_dom = () => {
+	set_tax_dom(calc_tax(shopping_cart_total));
+};
+
 const add_item_to_cart = (name, price) => {
 	shopping_cart = add_item(shopping_cart, name, price);
 	calc_cart_total();
