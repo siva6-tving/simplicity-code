@@ -1,13 +1,25 @@
-const shopping_cart = [];
+let shopping_cart = [];
 let shopping_cart_total = 0;
 
-const add_item_to_cart = (name, price) => {
-	shopping_cart.push({
-		name: name,
-		price: price
+const calc_total = cart => {
+	let	total = 0;
+	for (var i = 0; i < cart.length; i++) {
+		var item = cart[i];
+		total += item.price;
+	}
+	return total;
+}
+
+const add_item = (cart, name, price) => {
+	const new_cart = [...cart];
+	new_cart.push({
+		name,
+		price
 	});
-	calc_cart_total();
-};
+	return new_cart;
+}
+
+////////////////////////////////////////////////////////////////////
 
 const update_shipping_icons = () => {
 	const buy_buttons = get_buy_buttons_dom();
@@ -26,14 +38,12 @@ const update_tax_dom = () => {
 	set_tax_dom(shopping_cart_total * 0.10);
 };
 
-const calc_total = cart => {
-	let	total = 0;
-	for (var i = 0; i < cart.length; i++) {
-		var item = cart[i];
-		total += item.price;
-	}
-	return total;
-}
+
+////////////////////////////////////////////////////////////////////
+const add_item_to_cart = (name, price) => {
+	shopping_cart = add_item(shopping_cart, name, price);
+	calc_cart_total();
+};
 
 const calc_cart_total = () => {
 	shopping_cart_total = calc_total(shopping_cart);
