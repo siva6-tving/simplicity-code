@@ -22,15 +22,16 @@ const add_item = (cart, name, price) => {
 
 const calc_tax = amount => amount * 0.10;
 
+const gets_free_shipping = (total, item_price) => item_price + total >= 20;
+
 ////////////////////////////////////////////////////////////////////
-const gets_free_shipping = item_price => item_price + shopping_cart_total >= 20;
 
 const update_shipping_icons = () => {
 	const buy_buttons = get_buy_buttons_dom();
 	for(var i = 0; i < buy_buttons.length; i++) {
 		const button = buy_buttons[i];
 		const item = button.item;
-		if(gets_free_shipping(item.price)) {
+		if(gets_free_shipping(shopping_cart_total, item.price)) {
 			button.show_free_shipping_icon();
 		}else {
 			button.hide_free_shipping_icon();
