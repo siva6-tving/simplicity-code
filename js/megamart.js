@@ -40,18 +40,19 @@ const update_shipping_icons = cart => {
 	}
 };
 
-const update_tax_dom = () => {
-	set_tax_dom(calc_tax(shopping_cart_total));
+const update_tax_dom = total => {
+	set_tax_dom(calc_tax(total));
 };
 
 const add_item_to_cart = (name, price) => {
 	shopping_cart = add_item(shopping_cart, name, price);
-	calc_cart_total();
+	calc_cart_total(shopping_cart);
 };
 
-const calc_cart_total = () => {
-	shopping_cart_total = calc_total(shopping_cart);
-	set_cart_total_dom();
-	update_shipping_icons(shopping_cart);
-	update_tax_dom();
+const calc_cart_total = cart => {
+	const total = calc_total(cart);
+	set_cart_total_dom(total);
+	update_shipping_icons(cart);
+	update_tax_dom(total);
+	shopping_cart_total = total;
 };

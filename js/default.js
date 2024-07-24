@@ -61,8 +61,8 @@ const get_buy_buttons_dom = () => {
 	});
 };
 
-const set_cart_total_dom = () => {
-	document.querySelector('#cart-total').innerText = shopping_cart_total.toFixed(2);
+const set_cart_total_dom = total => {
+	document.querySelector('#cart-total').innerText = total.toFixed(2);
 };
 
 const set_tax_dom = tax => {
