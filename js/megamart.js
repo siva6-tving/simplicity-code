@@ -26,12 +26,12 @@ const gets_free_shipping = cart => calc_total(cart) >= 20;
 
 ////////////////////////////////////////////////////////////////////
 
-const update_shipping_icons = () => {
+const update_shipping_icons = cart => {
 	const buy_buttons = get_buy_buttons_dom();
 	for(var i = 0; i < buy_buttons.length; i++) {
 		const button = buy_buttons[i];
 		const item = button.item;
-		const new_cart = add_item(shopping_cart, item.name, item.price);
+		const new_cart = add_item(cart, item.name, item.price);
 		if(gets_free_shipping(new_cart)) {
 			button.show_free_shipping_icon();
 		}else {
@@ -52,6 +52,6 @@ const add_item_to_cart = (name, price) => {
 const calc_cart_total = () => {
 	shopping_cart_total = calc_total(shopping_cart);
 	set_cart_total_dom();
-	update_shipping_icons();
+	update_shipping_icons(shopping_cart);
 	update_tax_dom();
 };
