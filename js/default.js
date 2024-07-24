@@ -28,7 +28,7 @@ const makeItem = item => {
 		<img class="w-full" src="${item.img}" alt="${item.name}">
 		<div class="text-blue-500">${item.name}</div>
 		<div class="text-red-400">$${item.price}</div>
-		<button onclick="add_item_to_cart('${item.name}', ${item.price})" class="cart-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+		<button onclick="add_item_to_cart('${item.name}', ${item.price})" class="cart-btn btn btn-primary">
 			장바구니
 		</button>
 	`;
@@ -37,7 +37,7 @@ const makeItem = item => {
 
 const makeBadge = () => {
 	const badge = document.createElement('div');
-	badge.classList.add('inline-flex', 'items-center', 'justify-center', 'w-8', 'h-8', 'text-xs', 'text-yellow', 'bg-red-500', 'border-2', 'border-white', 'rounded-full', '-top-2', '-end-2', 'dark:border-gray-900');
+	badge.classList.add('badge', 'badge-secondary');
 	badge.innerText = 'free';
 	return badge;
 };
@@ -47,6 +47,21 @@ const set_free = (button, show) => {
 	if(show) {
 		button.appendChild(makeBadge());
 	}
+};
+
+const makeCartItem = item => {
+	const itemDom = document.createElement('div');
+	itemDom.classList.add('card', 'bg-neutral');
+	itemDom.innerHTML = `
+		<div class="card-body">
+			<h3 class="card-title">${item.name}</h3>
+			<p class="text-red-400">$${item.price}</p>
+			<div class="card-actions justify-end">
+				<button onclick="delete_handler('${item.name}')" class="btn btn-primary btn-sm">삭제</button>
+			</div>
+		</div>
+	`;
+	return itemDom;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -62,12 +77,13 @@ const get_buy_buttons_dom = () => {
 };
 
 const set_cart_total_dom = total => {
-	document.querySelector('#cart-total').innerText = total.toFixed(2);
+	document.querySelector('#cart-total').innerText = `$${total.toFixed(2)}`;
 };
 
 const set_tax_dom = tax => {
-	document.querySelector('#cart-tax').innerText = tax.toFixed(2);
+	document.querySelector('#cart-tax').innerText = `$${tax.toFixed(2)}`;
 };
+
 /////////////////////////////////////////////////////////////////////////////////
 
 const init = () => {
@@ -75,6 +91,19 @@ const init = () => {
 	_goods.forEach(item => {
 		list.appendChild(makeItem(item));
 	});
+
+	let shopping_cart_length = 0;
+	const cart = document.querySelector('#cart');
+	setInterval(() => {
+		if(!shopping_cart) return;
+		if(shopping_cart_length !== shopping_cart.length) {
+			cart.innerHTML = '';
+			shopping_cart.forEach(item => {
+				cart.appendChild(makeCartItem(item));
+			});
+			shopping_cart_length = shopping_cart.length
+		}
+	}, 1_000);
 };
 
 document.addEventListener('DOMContentLoaded', function() {
