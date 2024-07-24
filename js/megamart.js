@@ -1,5 +1,4 @@
 let shopping_cart = [];
-let shopping_cart_total = 0;
 
 ////////////////////////////////////////////////////////////////////
 const calc_total = cart => {
@@ -46,13 +45,8 @@ const update_tax_dom = total => {
 
 const add_item_to_cart = (name, price) => {
 	shopping_cart = add_item(shopping_cart, name, price);
-	calc_cart_total(shopping_cart);
-};
-
-const calc_cart_total = cart => {
-	const total = calc_total(cart);
+	const total = calc_total(shopping_cart);
 	set_cart_total_dom(total);
-	update_shipping_icons(cart);
+	update_shipping_icons(shopping_cart);
 	update_tax_dom(total);
-	shopping_cart_total = total;
 };
