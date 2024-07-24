@@ -1,6 +1,8 @@
 let shopping_cart = [];
 
 ////////////////////////////////////////////////////////////////////
+const add_element_last = (arr, element) => [...arr, element];
+
 const make_cart_item = (name, price) => ({name, price});
 
 const calc_total = cart => {
@@ -12,7 +14,7 @@ const calc_total = cart => {
 	return total;
 }
 
-const add_item = (cart, item) => [...cart, item];
+const add_item = (cart, item) => add_element_last(cart, item);
 
 const calc_tax = amount => amount * 0.10;
 
