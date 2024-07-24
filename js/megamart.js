@@ -20,19 +20,16 @@ const calc_tax = amount => amount * 0.10;
 
 const gets_free_shipping = cart => calc_total(cart) >= 20;
 
+const gets_free_shipping_with_item = (cart, item) => gets_free_shipping(add_item(cart, item));
+
 ////////////////////////////////////////////////////////////////////
+const set_free_shipping_icon = (button, isShown) => (isShown)?button.show_free_shipping_icon():button.hide_free_shipping_icon();
 
 const update_shipping_icons = cart => {
 	const buy_buttons = get_buy_buttons_dom();
 	for(var i = 0; i < buy_buttons.length; i++) {
 		const button = buy_buttons[i];
-		const item = button.item;
-		const new_cart = add_item(cart, make_cart_item(item.name, item.price));
-		if(gets_free_shipping(new_cart)) {
-			button.show_free_shipping_icon();
-		}else {
-			button.hide_free_shipping_icon();
-		}
+		set_free_shipping_icon(button, gets_free_shipping_with_item(cart, button.item));
 	}
 };
 
