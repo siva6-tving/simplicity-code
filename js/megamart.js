@@ -3,6 +3,8 @@ let shopping_cart = [];
 ////////////////////////////////////////////////////////////////////
 const add_element_last = (arr, element) => [...arr, element];
 
+const removeItems = (array, idx, count) => array.splice(idx, count);
+
 const make_cart_item = (name, price) => ({name, price});
 
 const calc_total = cart => {
@@ -22,7 +24,7 @@ const remove_item_by_name = (cart, name) => {
 	for(let i = 0; i < new_cart.length; i++) {
 		if(new_cart[i].name === name) idx = i;
 	}
-	if(idx !== null) new_cart.splice(idx, 1);
+	if(idx !== null) removeItems(new_cart, idx, 1);
 	return new_cart;
 };
 
