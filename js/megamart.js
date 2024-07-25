@@ -16,6 +16,14 @@ const calc_total = cart => {
 
 const add_item = (cart, item) => add_element_last(cart, item);
 
+const remove_item_by_name = (cart, name) => {
+	let idx = null;
+	for(let i = 0; i < cart.length; i++) {
+		if(cart[i].name === name) idx = i;
+	}
+	if(idx !== null) cart.splice(idx, 1);
+};
+
 const calc_tax = amount => amount * 0.10;
 
 const gets_free_shipping = cart => calc_total(cart) >= 20;
@@ -39,6 +47,14 @@ const update_tax_dom = total => {
 
 const add_item_to_cart = (name, price) => {
 	shopping_cart = add_item(shopping_cart, make_cart_item(name, price));
+	const total = calc_total(shopping_cart);
+	set_cart_total_dom(total);
+	update_shipping_icons(shopping_cart);
+	update_tax_dom(total);
+};
+
+const delete_handler = name => {
+	remove_item_by_name(shopping_cart, name);
 	const total = calc_total(shopping_cart);
 	set_cart_total_dom(total);
 	update_shipping_icons(shopping_cart);

@@ -42,7 +42,7 @@ const makeBadge = () => {
 	return badge;
 };
 
-const set_free = (button, show) => {
+const setFreeBadge = (button, show) => {
 	button.innerText = '장바구니';
 	if(show) {
 		button.appendChild(makeBadge());
@@ -70,8 +70,8 @@ const get_buy_buttons_dom = () => {
 	return _goods.map((item, idx) => {
 		return {
 			item,
-			show_free_shipping_icon: () => set_free(buttons[idx], true),
-			hide_free_shipping_icon: () => set_free(buttons[idx], false)
+			show_free_shipping_icon: () => setFreeBadge(buttons[idx], true),
+			hide_free_shipping_icon: () => setFreeBadge(buttons[idx], false)
 		};
 	});
 };
