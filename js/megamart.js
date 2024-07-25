@@ -3,7 +3,11 @@ let shopping_cart = [];
 ////////////////////////////////////////////////////////////////////
 const add_element_last = (arr, element) => [...arr, element];
 
-const removeItems = (array, idx, count) => array.splice(idx, count);
+const removeItems = (array, idx, count) => {
+	const copy = [...array];
+	copy.splice(idx, count);
+	return copy;
+};
 
 const make_cart_item = (name, price) => ({name, price});
 
@@ -14,18 +18,17 @@ const calc_total = cart => {
 		total += item.price;
 	}
 	return total;
-}
+};
 
 const add_item = (cart, item) => add_element_last(cart, item);
 
 const remove_item_by_name = (cart, name) => {
-	const new_cart = [...cart];
 	let idx = null;
-	for(let i = 0; i < new_cart.length; i++) {
-		if(new_cart[i].name === name) idx = i;
+	for(let i = 0; i < cart.length; i++) {
+		if(cart[i].name === name) idx = i;
 	}
-	if(idx !== null) removeItems(new_cart, idx, 1);
-	return new_cart;
+	if(idx !== null) return removeItems(cart, idx, 1);
+	return cart;
 };
 
 const calc_tax = amount => amount * 0.10;
